@@ -46,5 +46,32 @@ namespace MatchGame
             }
         }
 
+        TextBlock guessedTextBlock = new TextBlock();
+        bool isFirstTextBlockChoosed;
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock? currentTextBlock = sender as TextBlock;// useful like temp for later usage;
+            // "as" if not same type returns Null, doesn't crash like cast "(TextBlock)"
+
+            if (currentTextBlock == null)
+                return;
+            if (!isFirstTextBlockChoosed)
+            {
+                guessedTextBlock = currentTextBlock;// guessedTextBlock = (TextBlock)sender
+                guessedTextBlock.Visibility = Visibility.Hidden;
+                isFirstTextBlockChoosed = true;
+            }
+            else if (guessedTextBlock.Text == currentTextBlock.Text)// guessedTextBlock.Text == ((TextBlock)sender).Text;
+                // also possible to use pattern matching "is" ("sender is TextBlock name"; then name can be used in other if part)
+            {
+                currentTextBlock.Visibility = Visibility.Hidden;
+                isFirstTextBlockChoosed = false;
+            }
+            else
+            {
+                guessedTextBlock.Visibility = Visibility.Visible;
+                isFirstTextBlockChoosed = false;
+            }
+        }
     }
 }
