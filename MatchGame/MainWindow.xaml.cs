@@ -34,7 +34,10 @@ namespace MatchGame
         private void Timer_Tick(object? sender, EventArgs e)
         {
             tenthsOfSecondsElapsed++;
-            timeTextBlock.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0s");// tenthsOfSecondsElapsed.ToString("0.0s")
+            timeTextBlock.Text = "Time: " + (tenthsOfSecondsElapsed / 10F).ToString("0.0") + "s" + ", Pairs: " + matchesFound.ToString();
+            // tenthsOfSecondsElapsed.ToString("0.0s")
+            // don't use "+ matchesFound as string", works only because of cancatinaton
+            // for non derived from string better not to use "as" keyword
             if (matchesFound == 8)
             {
                 timer.Stop();
@@ -58,7 +61,8 @@ namespace MatchGame
             Random random = new Random();
             foreach (var textBlock in mainGrid.Children.OfType<TextBlock>())
             {
-                if ((textBlock.Tag as string) == "emojiBlock")// compare as both strings, no Tag equals Null (safe)
+                if ((textBlock.Tag as string) == "emojiBlock")// "==" to compare as both strings, using "as" here
+                                                              // no Tag on element equals Null (safe because of comparing)
                 // for obj's still usable -> "Equals(textBlock.Tag.ToString() , "emojiBlock")"
                 // not textBlock.Tag.ToString() == "emojiBlock"
                 {
@@ -68,6 +72,9 @@ namespace MatchGame
                     animalEmoji.RemoveAt(index);
                 }
 
+                timer.Start();
+                tenthsOfSecondsElapsed = 0;
+                matchesFound = 0;
             }
         }
 
@@ -91,6 +98,7 @@ namespace MatchGame
             {
                 currentTextBlock.Visibility = Visibility.Hidden;
                 isFirstTextBlockChoosed = false;
+                matchesFound++;
             }
             else
             {
