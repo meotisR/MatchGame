@@ -58,10 +58,16 @@ namespace MatchGame
             Random random = new Random();
             foreach (var textBlock in mainGrid.Children.OfType<TextBlock>())
             {
-                int index = random.Next(animalEmoji.Count);
-                string nextEmoji = animalEmoji[index];
-                textBlock.Text = nextEmoji;
-                animalEmoji.RemoveAt(index);
+                if ((textBlock.Tag as string) == "emojiBlock")// compare as both strings, no Tag equals Null (safe)
+                // for obj's still usable -> "Equals(textBlock.Tag.ToString() , "emojiBlock")"
+                // not textBlock.Tag.ToString() == "emojiBlock"
+                {
+                    int index = random.Next(animalEmoji.Count);
+                    string nextEmoji = animalEmoji[index];// exception here
+                    textBlock.Text = nextEmoji;
+                    animalEmoji.RemoveAt(index);
+                }
+
             }
         }
 
