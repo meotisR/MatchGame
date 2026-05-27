@@ -9,8 +9,8 @@
 
 
 ## Progress
-Write some text for myself here
-Make basis for this app, using TextBlocks, Emojis, Random, Lists and Loops
-Fixed Github commits mail
+Write some text for myself here  
+Make basis for this app, using TextBlocks, Emojis, Random, Lists and Loops  
+Fixed Github commits mail  
 
 Test
