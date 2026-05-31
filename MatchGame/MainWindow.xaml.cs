@@ -63,9 +63,12 @@ namespace MatchGame
             {
                 if ((textBlock.Tag as string) == "emojiBlock")// "==" to compare as both strings, using "as" here
                                                               // no Tag on element equals Null (safe because of comparing)
-                // for obj's still usable -> "Equals(textBlock.Tag.ToString() , "emojiBlock")"
+                // "textBlock.Tag is string comparedTag" can be more useful for other types, because of "as" just returns null if not same type
                 // not textBlock.Tag.ToString() == "emojiBlock"
+                // for obj's still unsafe -> "Equals(textBlock.Tag.ToString() , "emojiBlock")"
+                //old implementation is -> if (textBlock.Name != "timeTextBlock")
                 {
+                    textBlock.Visibility = Visibility.Visible;// Was a little hidden in the book, but better to set it here, because of the "Play again?" text
                     int index = random.Next(animalEmoji.Count);
                     string nextEmoji = animalEmoji[index];// exception here
                     textBlock.Text = nextEmoji;
@@ -79,7 +82,7 @@ namespace MatchGame
         }
 
         TextBlock guessedTextBlock = new TextBlock();
-        bool isFirstTextBlockChoosed;
+        bool isFirstTextBlockChoosed = false;
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock? currentTextBlock = sender as TextBlock;// useful like temp for later usage;
@@ -100,6 +103,7 @@ namespace MatchGame
                 isFirstTextBlockChoosed = false;
                 matchesFound++;
             }
+
             else
             {
                 guessedTextBlock.Visibility = Visibility.Visible;
